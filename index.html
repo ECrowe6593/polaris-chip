@@ -35,6 +35,84 @@
 
   <h1>my-card</h1>
   <my-card></my-card>
+  <div class="control-wrapper">
+    <button class="duplicate">Clone Card</button> <button id="changetitle">Change Title</button>
+    <button id="changeimage">Change Image</button>
+    <button id="changebg">Change Bg</button>
+    <button id="delete">Delete Card</button>
+  </div>
+  
+  <div id="cardlist">
+  <div class="border">
+    <div class="card">
+      <div class="heading">Cactus</div>
+      <img src="https://media.newyorker.com/photos/656f99f019bfb6c2c8a8c521/4:3/w_2748,h_2061,c_limit/Galchen_Illegal_Cactus_Trade_v2.jpg" class="image" width=120 height=120> </img>
+    <p class="para">This is an image of a cactus with a ski mask on. The title was "Illegal Cactus Trade." </p>
+    <a href="https://hax.psu.edu">
+      <button class="btn">Details</button>
+    </a>
+  </div>
+  </div>
+
+  <style>
+  .card {
+    background-color: orange;
+    border-radius: 10%;
+    width: 300px;
+    height: 250px;
+    padding: 16px;
+  }
+  
+  .card.change-color {
+    background-color: purple;
+  }
+  
+  .heading {
+    font-size: 40px;
+    color: black;
+    margin: 4px 4px 4px 80px;
+  }
+  
+  .image {
+    float: left;
+    margin: 8px 4px 4px 10px;
+    border-radius: 10%;
+  }
+  
+  .para {
+    padding: 4px;
+    font-size: 14px;
+    width: 130px;
+    float: right;
+    margin: 20px 8px 4px 4px;
+  }
+  
+  .btn {
+    background-color: blue;
+    color: black;
+    font-size: 18px;
+    border-radius: 10%;
+    padding: 10px;
+    margin: 4px 40px 40px 40px;
+  }
+  
+  .btn:focus,
+  .btn:hover {
+    background-color: green;
+  }
+  
+  @media (max-width 800px) and (min-width 500px) {
+    .btn {
+      display: none;
+    }
+  }
+  
+  @media (max-width 500px) {
+    .card, .heading, .image, .para, .btn {
+      width: 10%;
+    }
+  }
+  </style>
 
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>

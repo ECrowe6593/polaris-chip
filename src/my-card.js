@@ -19,7 +19,7 @@ export class MyCard extends LitElement {
   constructor() {
     super();
     this.title = "My card";
-    this.src = "https://media.newyorker.com/photos/656f99f019bfb6c2c8a8c521/4:3/w_2748,h_2061,c_limit/Galchen_Illegal_Cactus_Trade_v2.jpg"
+    this.src = ""
     this.btext = "This is an image of a cactus with a ski mask on. The title was Illegal Cactus Trade."
     this.btn = "Details"
     this.href = "https://hax.psu.edu"
@@ -37,6 +37,7 @@ export class MyCard extends LitElement {
         border-radius: 10%;
         width: 300px;
         height: 250px;
+        overflow: hidden;
         padding: 16px;
       }
   
@@ -51,6 +52,8 @@ export class MyCard extends LitElement {
       }
   
       .image {
+        height: 150px;
+        width: 150px;
         float: left;
         margin: 8px 4px 4px 10px;
         border-radius: 10%;
@@ -113,18 +116,32 @@ openChanged(e) {
 
   render() {
     return html`
-      <div>${this.title}</div>
-      <details ?open="${this.fancy}" @toggle="${this.openChanged}">
-      <summary>Description</summary>
-      <div>
-        <slot>${this.description}</slot>
-      </div>
-    </details>`;
+      <div class="card">
+        <div class="heading">${this.title}</div>
+        
+        <img class="image" src="${this.src}">
+        <div class="para">${this.btext}</div>
+
+        <a href="${this.href}">
+          <button class="btn">${this.btn}</button>
+        </a>
+
+        <details ?open="${this.fancy}" @toggle="${this.openChanged}">
+          <summary>Description</summary>
+          <div>
+            <slot>${this.description}</slot>
+          </div>
+        </details>
+    </div>`;
   }
 
   static get properties() {
     return {
       title: { type: String },
+      src: { type: String },
+      btext: { type: String },
+      btn: { type: String },
+      href: { type: String },
       fancy: { type: Boolean, reflect: true }
     };
   }

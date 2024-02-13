@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import "@lrnwebcomponents/meme-maker/meme-maker.js";
 
 /**
  * Now it's your turn. Here's what we need to try and do
@@ -20,6 +21,7 @@ export class MyCard extends LitElement {
     this.title = "My card";
     this.src = "https://media.newyorker.com/photos/656f99f019bfb6c2c8a8c521/4:3/w_2748,h_2061,c_limit/Galchen_Illegal_Cactus_Trade_v2.jpg"
     this.btext = "This is an image of a cactus with a ski mask on. The title was Illegal Cactus Trade."
+    this.btn = "Details"
     this.href = "https://hax.psu.edu"
     this.fancy = false;
   }
@@ -76,13 +78,13 @@ export class MyCard extends LitElement {
         background-color: green;
       }
   
-      @media (max-width 800px) and (min-width 500px) {
+      @media all and (min-width: 500px) and (max-width: 800px) {
         .btn {
           display: none;
         }
       }
   
-      @media (max-width 500px) {
+      @media all and (max-width: 500px) {
         .card, .heading, .image, .para, .btn {
           width: 10%;
         }
@@ -99,15 +101,15 @@ export class MyCard extends LitElement {
 
 
   // put this anywhere on the MyCard class; just above render() is probably good
-  openChanged(e) {
-    console.log(e.newState);
-    if (e.newState === "open") {
-      this.fancy = true;
-    }
-    else {
-      this.fancy = false;
-    }
+openChanged(e) {
+  console.log(e);
+  if (e.target.getAttribute('open') !== null) {
+    this.fancy = true;
   }
+  else {
+    this.fancy = false;
+  }
+}
 
   render() {
     return html`

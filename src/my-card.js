@@ -25,12 +25,14 @@ export class MyCard extends LitElement {
     this.href = "https://hax.psu.edu";
     this.fancy = false;
     this.description = "This is my cool card";
+    this.color = "orange"
   }
 
   static get styles() {
     return css`
       :host {
         display: block;
+        margin: 16px;
       }
 
       .card {
@@ -98,32 +100,21 @@ export class MyCard extends LitElement {
       .btn:hover {
         background-color: green;
       }
-  
-      @media all and (min-width: 500px) and (max-width: 800px) {
-        .btn {
-          display: none;
-        }
-      }
-  
-      @media all and (max-width: 500px) {
-        .card, .heading, .image, .para, .btn {
-          width: 10%;
-        }
-      }
 
       .fancy-content {
         display: flex;
-        
+        height: 50%;
+        width: 50%;
       }
 
-      :host([fancy]) {
+      :host([fancy]) .card{
         display: block;
         width: 50%;
         height: 50%;
         padding: 10px;
-        background-color: black;
+        background-color: yellow;
         border: 2px solid fuchsia;
-        box-shadow: 10px 5px 5px 5px red;
+        box-shadow: 0px 5px 5px 5px red;
       }
     `;
   }
@@ -142,7 +133,7 @@ openChanged(e) {
 
   render() {
     return html`
-      <div class="card">
+      <div class="card" style="background-color:${this.color}">
         <div 
           class="heading">${this.title}
         </div>
@@ -178,7 +169,8 @@ openChanged(e) {
       butn: { type: String },
       href: { type: String },
       description: { type: String },
-      fancy: { type: Boolean, reflect: true }
+      fancy: { type: Boolean, reflect: true },
+      color: {type: String}
     };
   }
 }

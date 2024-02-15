@@ -19,11 +19,12 @@ export class MyCard extends LitElement {
   constructor() {
     super();
     this.title = "My card";
-    this.src = ""
-    this.btext = "This is an image of a cactus with a ski mask on. The title was Illegal Cactus Trade."
-    this.btn = "Details"
-    this.href = "https://hax.psu.edu"
+    this.src = "";
+    this.btext = "This is an image of a cactus with a ski mask on. The title was Illegal Cactus Trade.";
+    this.butn = "Details";
+    this.href = "https://hax.psu.edu";
     this.fancy = false;
+    this.description = "This is my cool card";
   }
 
   static get styles() {
@@ -37,7 +38,6 @@ export class MyCard extends LitElement {
         border-radius: 10%;
         width: 300px;
         height: 250px;
-        overflow: hidden;
         padding: 16px;
       }
   
@@ -48,32 +48,38 @@ export class MyCard extends LitElement {
       .heading {
         font-size: 40px;
         color: black;
-        margin: 4px 4px 4px 80px;
+        margin: auto;
+        padding: 10px;
+        white-space: nowrap;
+        text-align: center;
       }
   
       .image {
-        height: 150px;
-        width: 150px;
+        height: 50%;
+        width: 50%;
         float: left;
-        margin: 8px 4px 4px 10px;
+        margin: auto;
         border-radius: 10%;
       }
   
       .para {
-        padding: 4px;
+        padding: 10px;
         font-size: 14px;
-        width: 130px;
+        width: 30%;
+        height: 30%;
+        margin: auto;
         float: right;
-        margin: 20px 8px 4px 4px;
       }
   
       .btn {
         background-color: blue;
         color: black;
         font-size: 18px;
+        width: 30%;
+        height: 30%;
         border-radius: 10%;
         padding: 10px;
-        margin: 4px 40px 40px 40px;
+        margin: auto;
       }
   
       .btn:focus,
@@ -95,9 +101,12 @@ export class MyCard extends LitElement {
 
       :host([fancy]) {
         display: block;
-        background-color: pink;
+        width: 50%;
+        height: 50%;
+        padding: 10px;
+        background-color: black;
         border: 2px solid fuchsia;
-        box-shadow: 10px 5px 5px red;
+        box-shadow: 10px 5px 5px 5px red;
       }
     `;
   }
@@ -119,19 +128,25 @@ openChanged(e) {
       <div class="card">
         <div class="heading">${this.title}</div>
         
-        <img class="image" src="${this.src}">
-        <div class="para">${this.btext}</div>
-
-        <a href="${this.href}">
-          <button class="btn">${this.btn}</button>
-        </a>
-
-        <details ?open="${this.fancy}" @toggle="${this.openChanged}">
-          <summary>Description</summary>
           <div>
-            <slot>${this.description}</slot>
+            <img class="image" src="${this.src}">
+            <div class="para">${this.btext}</div>
           </div>
-        </details>
+        
+          <div>
+            <a href="${this.href}">
+              <button class="btn">${this.butn}</button>
+            </a>
+          </div>
+
+        <div>
+          <details ?open="${this.fancy}" @toggle="${this.openChanged}">
+            <summary>Description</summary>
+            <div>
+              <slot>${this.description}</slot>
+            </div>
+          </details>
+        </div>
     </div>`;
   }
 
@@ -140,8 +155,9 @@ openChanged(e) {
       title: { type: String },
       src: { type: String },
       btext: { type: String },
-      btn: { type: String },
+      butn: { type: String },
       href: { type: String },
+      description: { type: String },
       fancy: { type: Boolean, reflect: true }
     };
   }

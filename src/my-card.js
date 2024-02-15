@@ -53,9 +53,15 @@ export class MyCard extends LitElement {
         white-space: nowrap;
         text-align: center;
       }
+
+      .main-content {
+        height: 50%;
+        width: 100%;
+        display: flex;
+      }
   
       .image {
-        height: 50%;
+        height: 75%;
         width: 50%;
         float: left;
         margin: auto;
@@ -65,21 +71,27 @@ export class MyCard extends LitElement {
       .para {
         padding: 10px;
         font-size: 14px;
-        width: 30%;
-        height: 30%;
+        width: 50%;
+        height: 75%;
         margin: auto;
         float: right;
+      }
+
+      .button-content {
+        height: 5%;
+        width: 140%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
   
       .btn {
         background-color: blue;
         color: black;
         font-size: 18px;
-        width: 30%;
-        height: 30%;
+        width: 100%;
         border-radius: 10%;
         padding: 10px;
-        margin: auto;
       }
   
       .btn:focus,
@@ -97,6 +109,11 @@ export class MyCard extends LitElement {
         .card, .heading, .image, .para, .btn {
           width: 10%;
         }
+      }
+
+      .fancy-content {
+        display: flex;
+        
       }
 
       :host([fancy]) {
@@ -126,20 +143,22 @@ openChanged(e) {
   render() {
     return html`
       <div class="card">
-        <div class="heading">${this.title}</div>
+        <div 
+          class="heading">${this.title}
+        </div>
         
-          <div>
-            <img class="image" src="${this.src}">
-            <div class="para">${this.btext}</div>
-          </div>
+        <div class="main-content">
+          <img class="image" src="${this.src}">
+          <div class="para">${this.btext}</div>
+        </div>
         
-          <div>
-            <a href="${this.href}">
-              <button class="btn">${this.butn}</button>
-            </a>
-          </div>
+        <div class="button-content">
+          <a href="${this.href}">
+            <button class="btn">Details</button>
+          </a>
+        </div>
 
-        <div>
+        <div class="fancy-content">
           <details ?open="${this.fancy}" @toggle="${this.openChanged}">
             <summary>Description</summary>
             <div>
@@ -147,7 +166,8 @@ openChanged(e) {
             </div>
           </details>
         </div>
-    </div>`;
+      </div>
+  `;
   }
 
   static get properties() {

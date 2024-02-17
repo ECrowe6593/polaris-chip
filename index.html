@@ -20,7 +20,7 @@
       margin: 16px;
     }
   </style>
-  <title>polaris-chip / my-card</title>
+  <title>polaris-chip / my-card / counter-app</title>
 </head>
 
 <body>
@@ -51,9 +51,18 @@
       <my-card title="Venus Flytrap" color="gray" src="https://www.tasteofhome.com/wp-content/uploads/2022/09/GettyImages-1408364825.jpg" btext="This is an image of a plant that eats insects. This plant is very creepy." butn="Details" href="https://hax.psu.edu"></my-card>
     </div>
 
+    <h1>counter-app</h1>
+
+    <div id="counterlist">
+      <counter-app counter="16" min="10" max="25"></counter-app>
+    </div>
+
+
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
+  <script type="module" src="./src/counter-app.js"></script>
+
 </body>
 
 </html>

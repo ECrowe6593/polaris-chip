@@ -54,7 +54,8 @@
     <h1>counter-app</h1>
 
     <div id="counterlist">
-      <counter-app counter="16" min="10" max="25"></counter-app>
+      <counter-app chcolor = "#daa520"></counter-app>
+      <counter-app chcolor = "#d2691e"></counter-app>
     </div>
 
 
@@ -62,6 +63,23 @@
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
   <script type="module" src="./src/counter-app.js"></script>
+  
+
+  <script>
+    document.querySelector('#minus').addEventListener('click', function(e) {
+    let num = document.querySelector('#num');
+    let result = Number(num.innerHTML) - 1;
+
+    num.innerHTML = result;
+  } );
+
+  document.querySelector('#plus').addEventListener('click', function(e) {
+    let num = document.querySelector('#num');
+    let result = Number(num.innerHTML) + 1;
+
+    num.innerHTML = result;
+  } );
+  </script>
 
 </body>
 

@@ -16,6 +16,7 @@ export class CounterApp extends LitElement {
 
   constructor() {
     super();
+    this.chcolor = "orange"
   }
 
   static get styles() {
@@ -34,61 +35,68 @@ export class CounterApp extends LitElement {
     }
 
     .number-container {
-      background-color: blue;
+      background-color: none;
+      display: flex;
       width: 50%;
-      height: 45%;
+      height: 50%;
       margin: auto;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #num {
+      display: block;
+      text-align: center;
+      font-size: 64px;
     }
 
     .button-container {
-      display: block;
-      background-color: black;
+      display: flex;
+      background-color: none;
       width: 100%;
       height: 50%;
+      align-items: center;
+      justify-content: center;
     }
 
-    .minus {
+    #minus {
       background-color: #ff6865;
       display: block;
       width: 30%;
       height: 50%;
-      float: left;
-      
+      margin: 16px;
     }
 
-    .plus {
+    #plus {
       background-color: #39e75f;
       display: block;
       width: 30%;
       height: 50%;
-      float: right;
+      margin: 16px;
     }
 
-    .minus:focus,
-    .minus:hover {
+    #minus:focus,
+    #minus:hover {
       background-color: red;
     }
 
-    .plus:focus,
-    .plus:hover {
+    #plus:focus,
+    #plus:hover {
       background-color: green;
     }
-
-
     `;
   }
 
-
   render() {
     return html`
-      <div class="count-card">
+      <div class="count-card" style="background-color:${this.chcolor}">
         <div class="number-container">
-          
+          <label id="num">0</label>
         </div>
 
         <div class="button-container">
-            <button class="minus">-</button>
-            <button class="plus">+</button>
+            <button id="minus">-</button>
+            <button id="plus">+</button>
         </div>
       </div>
     `;
@@ -96,6 +104,7 @@ export class CounterApp extends LitElement {
 
   static get properties() {
     return {
+      chcolor: {type: String}
     };
   }
 }

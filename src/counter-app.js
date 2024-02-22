@@ -125,6 +125,8 @@ export class CounterApp extends LitElement {
     var numColor = "black";
     if(this.counter === 18) {numColor = "purple"}
     if(this.counter === 21) {numColor = "teal"}
+    if(this.counter == this.max) {numColor = "pink"}
+    if(this.counter == this.min) {numColor = "gray"}
 
     return html`
     <confetti-container id="confetti">

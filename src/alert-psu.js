@@ -6,12 +6,12 @@ import { LitElement, html, css } from 'lit';
  * 2. Get CSS to work
  */
 
-export class Alert extends LitElement {
+export class AlertPSU extends LitElement {
 
   
 
   static get tag() {
-    return 'alert';
+    return 'alert-psu';
   }
 
   constructor() {
@@ -26,18 +26,17 @@ export class Alert extends LitElement {
     }
 
     .container {
-        position: relative;
-        width: 1440px;
-        margin: auto;
+      background-color: black;
+      height: 140px;
+      width: 1440px;
+      margin: auto;
     }
-
     `;
   }
 
   render() {
     return html`
-    <div class="container">
-    </div>
+    <div class="container"></div>
     `;
   }
 
@@ -47,4 +46,4 @@ export class Alert extends LitElement {
   }
 }
 
-globalThis.customElements.define(Alert.tag, Alert);
+globalThis.customElements.define(AlertPSU.tag, AlertPSU);

@@ -54,32 +54,20 @@
     <h1>counter-app</h1>
 
     <div id="counterlist">
-      <counter-app chcolor = "#daa520"></counter-app>
-      <counter-app chcolor = "#d2691e"></counter-app>
+      <counter-app chcolor="#daa520" counter="16" max="25" min="10"></counter-app>
+      <counter-app chcolor="#d2691e" counter="16" max="25" min="10"></counter-app>
     </div>
+
+    <h1>alert</h1>
+
+    <div id="alert-tag"></div>
 
 
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
   <script type="module" src="./src/counter-app.js"></script>
-  
-
-  <script>
-    document.querySelector('#minus').addEventListener('click', function(e) {
-    let num = document.querySelector('#num');
-    let result = Number(num.innerHTML) - 1;
-
-    num.innerHTML = result;
-  } );
-
-  document.querySelector('#plus').addEventListener('click', function(e) {
-    let num = document.querySelector('#num');
-    let result = Number(num.innerHTML) + 1;
-
-    num.innerHTML = result;
-  } );
-  </script>
+  <script type="module" src="./src/alert.js"></script>
 
 </body>
 

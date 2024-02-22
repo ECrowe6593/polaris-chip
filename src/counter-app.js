@@ -17,6 +17,9 @@ export class CounterApp extends LitElement {
   constructor() {
     super();
     this.chcolor = "orange"
+    this.counter = "16"
+    this.max = "25"
+    this.min = "10"
   }
 
   static get styles() {
@@ -24,6 +27,13 @@ export class CounterApp extends LitElement {
     :host {
       display: block;
       margin: 16px;
+    }
+
+    #confetti {
+      display: block;
+      width: 200px;
+      height: 200px;
+      padding: 16px;
     }
 
     .count-card {
@@ -44,7 +54,7 @@ export class CounterApp extends LitElement {
       justify-content: center;
     }
 
-    #num {
+    .num {
       display: block;
       text-align: center;
       font-size: 64px;
@@ -59,7 +69,7 @@ export class CounterApp extends LitElement {
       justify-content: center;
     }
 
-    #minus {
+    .minus {
       background-color: #ff6865;
       display: block;
       width: 30%;
@@ -67,7 +77,7 @@ export class CounterApp extends LitElement {
       margin: 16px;
     }
 
-    #plus {
+    .plus {
       background-color: #39e75f;
       display: block;
       width: 30%;
@@ -75,36 +85,69 @@ export class CounterApp extends LitElement {
       margin: 16px;
     }
 
-    #minus:focus,
-    #minus:hover {
+    .minus:focus,
+    .minus:hover {
       background-color: red;
     }
 
-    #plus:focus,
-    #plus:hover {
+    .plus:focus,
+    .plus:hover {
       background-color: green;
     }
     `;
   }
 
+  increment() {
+    if (this.counter < this.max) this.counter++;
+  }
+
+  decrement() {
+    if (this.counter > this.min) this.counter--;
+  }
+
+  updated(changedProperties) {
+    if (changedProperties.has('counter') && this.counter == 21) {
+      this.makeItRain();
+    }
+  }
+
+  makeItRain() {
+    import("@lrnwebcomponents/multiple-choice/lib/confetti-container.js").then(
+      (module) => {
+        setTimeout(() => {
+          this.shadowRoot.querySelector("#confetti").setAttribute("popped", "");
+        }, 0);
+      }
+    );
+  }
+
   render() {
+    var numColor = "black";
+    if(this.counter === 18) {numColor = "purple"}
+    if(this.counter === 21) {numColor = "teal"}
+
     return html`
+    <confetti-container id="confetti">
       <div class="count-card" style="background-color:${this.chcolor}">
         <div class="number-container">
-          <label id="num">0</label>
+          <label class="num" style="color:${numColor}">${this.counter}</label>
         </div>
 
         <div class="button-container">
-            <button id="minus">-</button>
-            <button id="plus">+</button>
+            <button class="minus" @click="${this.decrement}">-</button>
+            <button class="plus" @click="${this.increment}">+</button>
         </div>
       </div>
+    </confetti-container>
     `;
   }
 
   static get properties() {
     return {
-      chcolor: {type: String}
+      chcolor: { type: String },
+      counter: { type: String },
+      max: { type: String },
+      min: { type: String }
     };
   }
 }

@@ -26,7 +26,7 @@ export class AlertPSU extends LitElement {
     }
 
     .container {
-      background-color: black;
+      background-color: yellow;
       height: 140px;
       width: 1440px;
       margin: auto;
@@ -36,7 +36,9 @@ export class AlertPSU extends LitElement {
 
   render() {
     return html`
-    <div class="container"></div>
+    <div class="container">
+      <img src="https://static.thenounproject.com/png/887235-200.png">
+    </div>
     `;
   }
 

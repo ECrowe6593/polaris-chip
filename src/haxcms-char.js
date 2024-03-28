@@ -1,10 +1,17 @@
 import { html, css } from "lit";
 import { DDD } from "@lrnwebcomponents/d-d-d/d-d-d.js";
+import "@lrnwebcomponents/rpg-character/rpg-character.js";
 
 export class haxcms extends DDD {
   static get tag() {
     return "haxcms-char";
   }
+
+constructor() {
+  super();
+  this.saved = false;
+  this.characters = ["1", "2", "3", "4", ""];
+}
 
   static get styles() {
     return [
@@ -18,68 +25,116 @@ export class haxcms extends DDD {
           background-color: var(--ddd-theme-default-potentialMidnight);
           color: var(--ddd-theme-default-potentialMidnight);
           padding: var(--ddd-spacing-4);
-          height: 620px;
+          height: 400px;
           min-width: 100px;
         }
 
         .button-container {
           display: flex;
           margin-left: var(--ddd-spacing-4);
+          height: 20%;
+          width: 20%;
+        }
+
+        .create-btn {
+          height: 50%;
+          width: 50%;
+          margin: var(--ddd-spacing-4);
+          padding: var(--ddd-spacing-2);
+        }
+
+        .delete-btn {
+          height: 50%;
+          width: 50%;
+          margin: var(--ddd-spacing-4);
+          padding: var(--ddd-spacing-2);
         }
 
         .characters {
-          text-align: center;
-          margin: var(--ddd-spacing-5);
+          margin: var(--ddd-spacing-8);
+          display: flex;
+          color: orange;
         }
 
         .search {
-          background-color: var(--ddd-theme-default-slateMaxLight);
-          font-family: "Press Start 2P", system-ui;
-          min-width: var(--haxcms-party-ui-searchbar, 150px);
-          margin: var(--ddd-spacing-3);
-          padding: var(--ddd-spacing-6);
+          background-color: var(--ddd-theme-default-slateGray);
+          font-family: "Press Start 2P";
+          height: var(--haxcms-searchbar, 8px);
+          width: var(--haxcms-searchbar, 120px);
+          margin: var(--ddd-spacing-4);
+          padding: var(--ddd-spacing-4);
         }
 
         .button {
           color: blue;
-          background-color: var(--ddd-theme-default-roarMaxLight);
+          background-color: var(--ddd-theme-default-pughBlue);
           border: var(--ddd-border-sm);
-          border-color: var(--ddd-theme-default-nittanyNavy);
-          font-family: "Press Start 2P", system-ui;
-          font-size: var(--ddd-font-size-3xs);
+          border-color: var(--ddd-theme-default-landgrantBrown);
+          font-family: "Press Start 2P";
+          font-size: var(--ddd-font-size-2xs);
           font-weight: 500;
           min-width: 150px;
-          margin: var(--ddd-spacing-3);
-          padding: var(--ddd-spacing-5);
+          margin: var(--ddd-spacing-4);
+          padding: var(--ddd-spacing-6);
         }
 
-        .button:hover {
-          background-color: var(--ddd-theme-default-nittanyNavy);
-          color: var(--ddd-theme-default-roarMaxLight);
+        .create-btn:hover,
+        .create-btn:focus {
+          background-color: var(--ddd-theme-default-opportunityGreen);
           transform: scale(1.1);
-          transition: all 300ms ease-in-out;
+        }
+
+        .delete-btn:hover,
+        .delete-btn:focus {
+          background-color: var(--ddd-theme-default-wonderPurple);
+          transform: scale(1.1);
+        }
+
+        .save-btn:hover,
+        .save-btn:focus {
+          background-color: var(--ddd-theme-default-opportunityGreen);
+          transform: scale(1.1);
         }
     `];
   }
 
   render() {
     return html`
-      <div class="container">
-        <div class="button-container">
-          <input
-            type="text"
-            class="search-input"
-            placeholder="Search Party Member"
-            />
+      <confetti-container id="confetti">
+        <div class="container">
+          <div class="button-container">
+            <input
+              type="text"
+              class="search"
+              placeholder="Search Party Member"
+              />
+            <button class="create-btn" @click="${this.refreshCont}">Create</button>
+            <button class="delete-btn">Delete</button>
+          </div>
+          <div class="characters">
+            ${this.characters.map((item) => html`<rpg-character seed=${item}></rpg-character><p>${item}</p>`)}
+          </div>
+          <button class="save-btn" @click="${this.makeItRain}">Save Character Creations</button>
         </div>
-      </div>
+    </confetti-container>
   `;
+  }
+
+  makeItRain() {
+    import("@lrnwebcomponents/multiple-choice/lib/confetti-container.js").then(
+      (module) => {
+        setTimeout(() => {
+          this.shadowRoot.querySelector("#confetti").setAttribute("popped", "");
+        }, 0);
+      }
+    );
   }
 
   static get properties() {
     return {
       ...super.properties,
-      title: { type: String }
+      character: { type: String, reflect: true },
+      item: { type: String, reflect: true },
     };
   }
 }

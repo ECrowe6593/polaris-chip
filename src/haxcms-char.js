@@ -130,11 +130,32 @@ constructor() {
     );
   }
 
+  addParty() {
+    this.characters = [...this.characters, null];
+    this.saved = true;
+  }
+
+  removeParty() {
+    this.saved = false;
+  }
+
+  saveParty() {
+    if (this.saved) {
+      const myArray = this.characters.toString();
+      localStorage.setItem("party", myArray);
+      console.log(localStorage.getItem("party").split(","));
+    } else {
+      localStorage.removeItem("party");
+    }
+  }
+
+
   static get properties() {
     return {
       ...super.properties,
       character: { type: String, reflect: true },
       item: { type: String, reflect: true },
+      party: { type: Array, reflect: true },
     };
   }
 }

@@ -10,7 +10,7 @@ export class haxcms extends DDD {
 constructor() {
   super();
   this.saved = false;
-  this.characters = ["1", "2", "3", "4", ""];
+  this.characters = ["random"];
 }
 
   static get styles() {
@@ -108,13 +108,13 @@ constructor() {
               class="search"
               placeholder="Search Party Member"
               />
-            <button class="create-btn" @click="${this.refreshCont}">Create</button>
-            <button class="delete-btn">Delete</button>
+            <button class="create-btn" @click="${this.addParty}">Create</button>
+            <button class="delete-btn" @click="${this.removeParty}">Delete</button>
           </div>
           <div class="characters">
             ${this.characters.map((item) => html`<rpg-character seed=${item}></rpg-character><p>${item}</p>`)}
           </div>
-          <button class="save-btn" @click="${this.makeItRain}">Save Character Creations</button>
+          <button class="save-btn" @click="${this.saveParty}">Save Character Creations</button>
         </div>
     </confetti-container>
   `;
@@ -144,6 +144,7 @@ constructor() {
       const myArray = this.characters.toString();
       localStorage.setItem("party", myArray);
       console.log(localStorage.getItem("party").split(","));
+      this.makeItRain();
     } else {
       localStorage.removeItem("party");
     }

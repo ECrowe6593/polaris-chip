@@ -11,6 +11,7 @@ constructor() {
   super();
   this.saved = false;
   this.characters = ["random"];
+  this.filteredCharacters = [];
 }
 
   static get styles() {
@@ -107,16 +108,18 @@ constructor() {
               type="text"
               class="search"
               placeholder="Search Party Member"
+              @keydown="${this.handleSearch}"
               />
-            <button class="create-btn" @click="${this.addParty}">Create</button>
+            <button class="create-btn" @click="${this.addParty}" ?disabled="${this.characters.length >= 4}">Create</button>
             <button class="delete-btn" @click="${this.removeParty}">Delete</button>
           </div>
           <div class="characters">
-            ${this.characters.map((item) => html`<rpg-character seed=${item}></rpg-character><p>${item}</p>`)}
+          ${this.characters.map((item) => html`<rpg-character seed=${item}></rpg-character><p>${item}</p>`)}
+            ${this.filteredCharacters.map((item) => html`<rpg-character seed=${item}></rpg-character><p>${item}</p>`)}
           </div>
           <button class="save-btn" @click="${this.saveParty}">Save Character Creations</button>
         </div>
-    </confetti-container>
+      </confetti-container>
   `;
   }
 
@@ -130,13 +133,30 @@ constructor() {
     );
   }
 
-  addParty() {
-    this.characters = [...this.characters, null];
-    this.saved = true;
+  handleSearch(event) {
+    if (event.key === 'Enter') { // Check if the key pressed is Enter
+      const searchText = event.target.value.toLowerCase(); // Get the input text and convert it to lowercase
+      this.filteredCharacters = this.characters.filter(character => character.toLowerCase().includes(searchText)); // Filter the characters array based on the input text
+      this.requestUpdate('filteredCharacters'); // Trigger a re-render to display the filtered characters
+    }
   }
 
+  addParty() {
+    if  (this.characters.length < 4) {
+      const newCharacters = ["1", "2", "3", "4"];
+      this.characters = [...this.characters, newCharacters.slice(0, 4 - this.characters.length)];
+      this.saved = true;
+      this.requestUpdate('characters');
+  } else {
+    console.log("Maximum number of members reached (4)");
+  }
+}
+
   removeParty() {
-    this.saved = false;
+    this.characters.pop();
+    this.willBeEmpty = this.characters.length === 0;
+    this.requestUpdate('characters');
+    this.requestUpdate('willBeEmpty');
   }
 
   saveParty() {
@@ -157,6 +177,7 @@ constructor() {
       character: { type: String, reflect: true },
       item: { type: String, reflect: true },
       party: { type: Array, reflect: true },
+      willBeEmpty: { type: Boolean, attribute: false },
     };
   }
 }

@@ -10,7 +10,7 @@ export class haxcms extends DDD {
 constructor() {
   super();
   this.saved = false;
-  this.characters = ["random"];
+  this.characters = [];
   this.filteredCharacters = [];
 }
 
@@ -26,7 +26,7 @@ constructor() {
           background-color: var(--ddd-theme-default-potentialMidnight);
           color: var(--ddd-theme-default-potentialMidnight);
           padding: var(--ddd-spacing-4);
-          height: 400px;
+          height: 500px;
           min-width: 100px;
         }
 
@@ -52,6 +52,12 @@ constructor() {
         }
 
         .characters {
+          margin: var(--ddd-spacing-8);
+          display: flex;
+          color: orange;
+        }
+
+        .filteredCharacters {
           margin: var(--ddd-spacing-8);
           display: flex;
           color: orange;
@@ -114,10 +120,12 @@ constructor() {
             <button class="delete-btn" @click="${this.removeParty}">Delete</button>
           </div>
           <div class="characters">
-          ${this.characters.map((item) => html`<rpg-character seed=${item}></rpg-character><p>${item}</p>`)}
-            ${this.filteredCharacters.map((item) => html`<rpg-character seed=${item}></rpg-character><p>${item}</p>`)}
+            ${this.characters.map((item) => html`<rpg-character seed=${item}></rpg-character><p>${item}</p>`)}
           </div>
           <button class="save-btn" @click="${this.saveParty}">Save Character Creations</button>
+          <div class = "filteredCharacters">
+            ${this.filteredCharacters.map((item) => html`<rpg-character seed=${item}></rpg-character><p>${item}</p>`)}
+          </div>
         </div>
       </confetti-container>
   `;
@@ -134,24 +142,30 @@ constructor() {
   }
 
   handleSearch(event) {
-    if (event.key === 'Enter') { // Check if the key pressed is Enter
-      const searchText = event.target.value.toLowerCase(); // Get the input text and convert it to lowercase
-      this.filteredCharacters = this.characters.filter(character => character.toLowerCase().includes(searchText)); // Filter the characters array based on the input text
-      this.requestUpdate('filteredCharacters'); // Trigger a re-render to display the filtered characters
+    const searchText = event.target.value.trim().toLowerCase(); // Get the input text and convert it to lowercase
+    if (searchText === "") {
+      this.filteredCharacters = [];
+    } else {
+      const foundCharacter = this.characters.find(character => character.toLowerCase() === searchText);
+      this.filteredCharacters = foundCharacter ? [foundCharacter] : [];
+    }
+    this.requestUpdate('filteredCharacters'); // Trigger a re-render to display the filtered characters
+  }
+  
+  addParty() {
+    if (this.characters.length < 4) {
+      const newCharacters = ["Mario", "Luigi", "Link", "Zelda"];
+      if (this.characters.length < newCharacters.length) {
+        const newCharacter = newCharacters[this.characters.length];
+        this.characters.push(newCharacter);
+        this.saved = true;
+        this.requestUpdate('characters');
+      } else {
+        console.log("Maximum number of members reached (4)");
+      }
     }
   }
-
-  addParty() {
-    if  (this.characters.length < 4) {
-      const newCharacters = ["1", "2", "3", "4"];
-      this.characters = [...this.characters, newCharacters.slice(0, 4 - this.characters.length)];
-      this.saved = true;
-      this.requestUpdate('characters');
-  } else {
-    console.log("Maximum number of members reached (4)");
-  }
-}
-
+  
   removeParty() {
     this.characters.pop();
     this.willBeEmpty = this.characters.length === 0;
